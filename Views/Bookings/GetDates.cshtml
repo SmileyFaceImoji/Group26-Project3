@@ -1,0 +1,39 @@
+﻿@using GRP26Project.Controllers;
+@using GRP26Project.Models;
+@{
+    ViewBag.Title = "GetDates";
+}
+
+<h2>GetDates</h2>
+
+<form action="/Booking/Availability" method="get">
+    <label for="checkin">Check-in Date:</label>
+    <input type="date" id="checkin" name="checkin">
+
+    <label for="checkout">Check-out Date:</label>
+    <input type="date" id="checkout" name="checkout">
+
+    <button type="submit">Check Availability</button>
+</form>
+
+<script>
+    $(function () {
+        $('#availability-form').submit(function (event) {
+            event.preventDefault();
+            var checkin = $('#checkin').val();
+            var checkout = $('#checkout').val();
+            $.ajax({
+               url: '@Url.Action("Availability", "Booking")',
+                type: 'get',
+                data: { checkin: checkin, checkout: checkout },
+                success: function (data) {
+                    // Handle the response from the server here
+                },
+                error: function (xhr) {
+                    // Handle errors here
+                }
+            });
+        });
+    });
+</script>
+}
